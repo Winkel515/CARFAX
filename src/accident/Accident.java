@@ -1,20 +1,20 @@
 package accident;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 /**
  * Accident class stores description and date of a single accident
  */
 class Accident implements Comparable<Accident>{
     private String description;
-    private final Date dateOfAccident;
+    private final LocalDate dateOfAccident;
 
     /**
      * Constructor for Accident
      * @param description description of an accident
      * @param dateOfAccident date that the accident occured
      */
-    Accident(String description, Date dateOfAccident) {
+    Accident(String description, LocalDate dateOfAccident) {
         this.description = description;
         this.dateOfAccident = dateOfAccident;
     }
@@ -27,5 +27,13 @@ class Accident implements Comparable<Accident>{
     @Override
     public int compareTo(Accident o) {
         return dateOfAccident.compareTo(o.dateOfAccident);
+    }
+
+    public boolean isMoreRecentThan(Accident o) {
+        return  dateOfAccident.compareTo(o.dateOfAccident) > 0;
+    }
+
+    public String toString() {
+        return String.format("Description: %s, Date: %s", description, dateOfAccident.toString());
     }
 }
