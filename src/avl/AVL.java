@@ -1,4 +1,4 @@
-package pkg;
+package avl;
 
 public class AVL<T extends KeyValuePair> {
     private Node root;
@@ -15,6 +15,8 @@ public class AVL<T extends KeyValuePair> {
 //        while(current != null) {
 //
 //        }
+
+        //TODO Implement AVL fixing with rotations after insert
     }
 
     public boolean isEmpty() {
@@ -23,6 +25,7 @@ public class AVL<T extends KeyValuePair> {
 
     private class Node {
         private T content;
+        private long height;
         private Node left;
         private Node right;
 
