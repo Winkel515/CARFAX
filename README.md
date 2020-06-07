@@ -1,5 +1,7 @@
 # CARFAX
 
+Data Structure and Algorithm course assignment
+
 Rules:
 
   1- Add javadoc comments whenever you add a method. Describe in sufficient detail the parameters and the return value.
