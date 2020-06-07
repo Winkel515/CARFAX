@@ -1,16 +1,15 @@
 package pkg;
 
 import accident.AccidentHistory;
-import avl.KeyValuePair;
 
 import java.time.LocalDate;
 
-public class Vehicle implements KeyValuePair<String, Vehicle> {
+public class Vehicle implements Comparable<Vehicle> {
     private final String VIN;
     private AccidentHistory accidentHistory;
 
     public Vehicle(String VIN) {
-        this.VIN = VIN;
+        this.VIN = VIN.toUpperCase();
         accidentHistory = new AccidentHistory();
     }
 
@@ -19,12 +18,11 @@ public class Vehicle implements KeyValuePair<String, Vehicle> {
     }
 
     @Override
-    public String getKey() {
-        return VIN;
+    public int compareTo(Vehicle o) {
+        return this.VIN.compareTo(o.VIN);
     }
 
-    @Override
-    public Vehicle getValue() {
-        return this;
+    public String getVIN() {
+        return VIN;
     }
 }
