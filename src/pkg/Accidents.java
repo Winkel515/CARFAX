@@ -1,4 +1,4 @@
-package com.company;
+package pkg;
 
 public class Accidents {
     private static class Node {

@@ -1,4 +1,4 @@
-package com.company;
+package pkg;
 
 public class AVL<T extends KeyValuePair> {
     private Node root;
