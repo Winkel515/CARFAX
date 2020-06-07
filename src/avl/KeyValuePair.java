@@ -1,6 +1,8 @@
 package avl;
 
-interface KeyValuePair<K extends Comparable<K>, V> {
+import pkg.Vehicle;
+
+public interface KeyValuePair<K extends Comparable<K>, V> {
     public K getKey();
     public V getValue();
 }

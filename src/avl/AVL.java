@@ -1,6 +1,6 @@
 package avl;
 
-public class AVL<T extends KeyValuePair> {
+public class AVL<T extends KeyValuePair<String, Object>> {
     private Node root;
 
     public AVL() {};
