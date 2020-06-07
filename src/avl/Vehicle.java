@@ -1,10 +1,10 @@
-package pkg;
+package avl;
 
 import accident.AccidentHistory;
 
 import java.time.LocalDate;
 
-public class Vehicle implements Comparable<Vehicle> {
+public class Vehicle implements Comparable<String>{
     private final String VIN;
     private AccidentHistory accidentHistory;
 
@@ -18,8 +18,8 @@ public class Vehicle implements Comparable<Vehicle> {
     }
 
     @Override
-    public int compareTo(Vehicle o) {
-        return this.VIN.compareTo(o.VIN);
+    public int compareTo(String VIN) {
+        return this.VIN.compareTo(VIN);
     }
 
     public String getVIN() {

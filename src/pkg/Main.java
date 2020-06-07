@@ -1,10 +1,8 @@
 package pkg;
 
-import accident.AccidentHistory;
 import avl.AVL;
 import avl.DuplicateVINException;
-
-import java.time.LocalDate;
+import avl.Vehicle;
 
 public class Main {
 
@@ -24,6 +22,11 @@ public class Main {
         avl.insert(new Vehicle("P"));
         avl.insert(new Vehicle("Z"));
         avl.insert(new Vehicle("B"));
+        avl.insert(new Vehicle("X"));
+        avl.insert(new Vehicle("D"));
+        avl.insert(new Vehicle("W"));
         avl.printInorder();
+        System.out.println();
+        avl.find("W");
     }
 }

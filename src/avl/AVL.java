@@ -1,7 +1,5 @@
 package avl;
 
-import pkg.Vehicle;
-
 public class AVL {
     private Node root;
 
@@ -13,41 +11,61 @@ public class AVL {
             return;
         }
 
-        //TODO Implement binary tree insertion
+        // BST Insertion
         Node current = root;
-        while(current != null) {
-            if (input.compareTo(current.vehicle) < 0) {
-                if(current.left != null) {
+        while(true) {
+            if (input.compareTo(current.vehicle.getVIN()) < 0) {
+                if(current.hasLeft()) {
                     current = current.left;
                 } else {
                     current.left = new Node(input);
                     break;
                 }
-            } else if (input.compareTo(current.vehicle) > 0) {
-                if(current.right != null) {
+            } else if (input.compareTo(current.vehicle.getVIN()) > 0) {
+                if(current.hasRight()) {
                     current = current.right;
                 } else {
                     current.right = new Node(input);
                     break;
                 }
             } else {
-                System.out.println(current.vehicle.getVIN());
-                System.out.println(input.getVIN());
                 throw new DuplicateVINException(input.getVIN());
             }
         }
 
-        //TODO Implement AVL fixing with rotations after insert
+        //TODO Implement AVL-ification with rotations after insert
+    }
+
+    public Vehicle find(String VIN) {
+        Node current = root;
+        while(true) {
+            System.out.println(current.vehicle.getVIN());
+            if (current.vehicle.compareTo(VIN) > 0) {
+                if(current.hasLeft()) {
+                    current = current.left;
+                } else {
+                    return null;
+                }
+            } else if (current.vehicle.compareTo(VIN) < 0) {
+                if(current.hasRight()) {
+                    current = current.right;
+                } else {
+                    return null;
+                }
+            } else {
+                return current.vehicle;
+            }
+        }
     }
 
     public void printInorder() {
         printInorder(root, "");
     }
     private void printInorder(Node v, String s) {
-        if (v.left != null)
+        if (v.hasLeft())
             printInorder(v.left, s+"L");
         System.out.printf("[%s %s]", v.vehicle.getVIN(), s);
-        if (v.right != null)
+        if (v.hasRight())
             printInorder(v.right, s+"R");
     }
 
