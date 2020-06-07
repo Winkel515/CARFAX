@@ -17,7 +17,9 @@ Data Structure and Algorithm course assignment
 <br/>
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;git pull
   <br/>
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i>Important: You should git pull every time you open your IDE in case that any changes have been made else you'll be working with old code</i>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i>Important: You should git pull every time you open your IDE in case that
+  <br/>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;any changes have been made else you'll be working with old code</i>
 
 <b>To create a new branch:</b>
 <br />
@@ -31,9 +33,13 @@ Data Structure and Algorithm course assignment
   
 <b>To delete a branch:</b>
   <br/>
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;delete locally: git branch -d branchname
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;delete locally:
   <br/>
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;delete from github: git push origin --delete branchname 
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;git branch -d branchname
+  <br/>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;delete from github:
+  <br/>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;git push origin --delete branchname 
   <br/>
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i>Tip: You can also delete the branch on github using the website</i>
 
