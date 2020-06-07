@@ -2,16 +2,42 @@
 
 Data Structure and Algorithm course assignment
 
-To add your code:
+<h2>Useful git commands</h2>
 
-  1- git add .
+<b>To push your code to github:</b>
+<br/>
+  git add .
   <br />
-  2- git commit -am "Your Message"
+  git commit -am "Your Message"
   <br />
-  3- git push
+  git push
   <br />
+  
+<b>To get new code from github:</b>
+<br/>
+  git pull
+  <br/>
+  <i>Important: You should git pull every time you open your IDE in case that any changes have been made else you'll be working with old code</i>
 
-Rules:
+<b>To create a new branch:</b>
+<br />
+  git checkout -b branchname
+  <br/>
+  <i>Tip: Don't forget to push your branch so I can see it on github</i>
+ 
+<b>To move between branches:</b>
+<br/>
+  git checkout branchname
+  
+<b>To delete a branch:</b>
+  <br/>
+  delete locally: git branch -d branchname
+  <br/>
+  delete from github: git push origin --delete branchname 
+  <br/>
+  <i>Tip: You can also delete the branch on github using the website</i>
+
+<h2>Rules:</h2>
 
   1- Add javadoc comments whenever you add a method. Describe in sufficient detail the parameters and the return value.
      Comment the inner working of the method step by step. This will make it easier to find bugs in the implementation of the method
