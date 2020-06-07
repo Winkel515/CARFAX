@@ -8,3 +8,5 @@ Rules:
      Don't forget to document the newly added class.
   
   3- In case of merge conflicts, contact me to resolve it together. DO NOT RESOLVE THE CONFLICT YOURSELF (unless it is trivial).
+  
+  4- It would be preferable if you branched off the master branch for adding new features. This will reduce the headache of when encoutering a bug.
