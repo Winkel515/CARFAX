@@ -5,8 +5,11 @@ Data Structure and Algorithm course assignment
 To add your code:
 
   1- git add .
+  <br />
   2- git commit -am "Your Message"
+  <br />
   3- git push
+  <br />
 
 Rules:
 
