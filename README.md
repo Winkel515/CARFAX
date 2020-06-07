@@ -2,6 +2,12 @@
 
 Data Structure and Algorithm course assignment
 
+To add your code:
+
+1- git add .
+2- git commit -am "Your Message"
+3- git push
+
 Rules:
 
   1- Add javadoc comments whenever you add a method. Describe in sufficient detail the parameters and the return value.
