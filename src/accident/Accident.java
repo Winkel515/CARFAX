@@ -1,0 +1,31 @@
+package accident;
+
+import java.util.Date;
+
+/**
+ * Accident class stores description and date of a single accident
+ */
+class Accident implements Comparable<Accident>{
+    private String description;
+    private final Date dateOfAccident;
+
+    /**
+     * Constructor for Accident
+     * @param description description of an accident
+     * @param dateOfAccident date that the accident occured
+     */
+    Accident(String description, Date dateOfAccident) {
+        this.description = description;
+        this.dateOfAccident = dateOfAccident;
+    }
+
+    /**
+     * Allows Accidents to be compared based on the date of an accident for Accident History
+     * @param o Accident to be compared to
+     * @return the value 0 if the argument Date is equal to this Date; a value less than 0 if this Date is before the Date argument; and a value greater than 0 if this Date is after the Date argument.
+     */
+    @Override
+    public int compareTo(Accident o) {
+        return dateOfAccident.compareTo(o.dateOfAccident);
+    }
+}
