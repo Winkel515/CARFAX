@@ -57,5 +57,6 @@ public class AccidentHistory {
         for (Node current = head; current != null; current = current.next) {
             System.out.printf("[ %s ] ", current.accident.toString());
         }
+        System.out.println();
     }
 }

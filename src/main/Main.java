@@ -16,18 +16,26 @@ public class Main {
 
         AVL avl = new AVL();
         avl.insert(new Vehicle("E"));
+        avl.printPreOrder();
         avl.insert(new Vehicle("H"));
+        avl.printPreOrder();
         avl.insert(new Vehicle("A"));
+        avl.printPreOrder();
         avl.insert(new Vehicle("F"));
+        avl.printPreOrder();
         avl.insert(new Vehicle("P"));
+        avl.printPreOrder();
         avl.insert(new Vehicle("Z"));
+        avl.printPreOrder();
         avl.insert(new Vehicle("B"));
+        avl.printPreOrder();
         avl.insert(new Vehicle("X"));
+        avl.printPreOrder();
         avl.insert(new Vehicle("D"));
+        avl.printPreOrder();
         avl.insert(new Vehicle("W"));
-        avl.printInorder();
+        avl.printPreOrder();
         System.out.println();
-        avl.find("W");
 
         //hello
         //hello2
