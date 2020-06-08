@@ -76,6 +76,7 @@ public class AVL {
     private class Node {
         private Vehicle vehicle;
         private long height;
+        private Node parent;
         private Node left;
         private Node right;
 

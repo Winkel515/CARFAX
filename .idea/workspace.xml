@@ -3,11 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="fdfbfd37-6192-4ed1-8aca-0e3765b3a63c" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/A3/pkg/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/A3/pkg/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/A3/pkg/Vehicle.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/A3/pkg/Main.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/avl/AVL.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/avl/AVL.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pkg/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pkg/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pkg/Vehicle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/avl/Vehicle.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pkg/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Main.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,7 +47,7 @@
       </method>
     </configuration>
     <configuration name="Main" type="Application" factoryName="Application" temporary="true">
-      <option name="MAIN_CLASS_NAME" value="pkg.Main" />
+      <option name="MAIN_CLASS_NAME" value="main.Main" />
       <module name="A3" />
       <extension name="coverage">
         <pattern>
@@ -78,7 +76,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1591487227518</updated>
-      <workItem from="1591487234523" duration="10009000" />
+      <workItem from="1591487234523" duration="13571000" />
     </task>
     <servers />
   </component>
@@ -102,22 +100,22 @@
       <screen x="0" y="23" width="1440" height="830" />
     </state>
     <state x="458" y="194" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.23.1440.830@0.23.1440.830" timestamp="1591550803182" />
-    <state width="1398" height="215" key="GridCell.Tab.0.bottom" timestamp="1591553511813">
+    <state width="1398" height="215" key="GridCell.Tab.0.bottom" timestamp="1591558507239">
       <screen x="0" y="23" width="1440" height="830" />
     </state>
-    <state width="1398" height="215" key="GridCell.Tab.0.bottom/0.23.1440.830@0.23.1440.830" timestamp="1591553511813" />
-    <state width="1398" height="215" key="GridCell.Tab.0.center" timestamp="1591553511813">
+    <state width="1398" height="215" key="GridCell.Tab.0.bottom/0.23.1440.830@0.23.1440.830" timestamp="1591558507239" />
+    <state width="1398" height="215" key="GridCell.Tab.0.center" timestamp="1591558507238">
       <screen x="0" y="23" width="1440" height="830" />
     </state>
-    <state width="1398" height="215" key="GridCell.Tab.0.center/0.23.1440.830@0.23.1440.830" timestamp="1591553511813" />
-    <state width="1398" height="215" key="GridCell.Tab.0.left" timestamp="1591553511812">
+    <state width="1398" height="215" key="GridCell.Tab.0.center/0.23.1440.830@0.23.1440.830" timestamp="1591558507238" />
+    <state width="1398" height="215" key="GridCell.Tab.0.left" timestamp="1591558507237">
       <screen x="0" y="23" width="1440" height="830" />
     </state>
-    <state width="1398" height="215" key="GridCell.Tab.0.left/0.23.1440.830@0.23.1440.830" timestamp="1591553511812" />
-    <state width="1398" height="215" key="GridCell.Tab.0.right" timestamp="1591553511813">
+    <state width="1398" height="215" key="GridCell.Tab.0.left/0.23.1440.830@0.23.1440.830" timestamp="1591558507237" />
+    <state width="1398" height="215" key="GridCell.Tab.0.right" timestamp="1591558507239">
       <screen x="0" y="23" width="1440" height="830" />
     </state>
-    <state width="1398" height="215" key="GridCell.Tab.0.right/0.23.1440.830@0.23.1440.830" timestamp="1591553511813" />
+    <state width="1398" height="215" key="GridCell.Tab.0.right/0.23.1440.830@0.23.1440.830" timestamp="1591558507239" />
     <state width="600" height="424" key="javadoc.popup" timestamp="1591548004524">
       <screen x="0" y="23" width="1440" height="830" />
     </state>

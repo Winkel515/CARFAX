@@ -1,4 +1,4 @@
-package pkg;
+package main;
 
 import avl.AVL;
 import avl.DuplicateVINException;
