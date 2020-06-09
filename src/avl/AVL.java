@@ -5,6 +5,11 @@ public class AVL {
 
     public AVL() {};
 
+    /**
+     * Inserts a Vehicle into the AVL Tree sorted by VIN in lexicographical order
+     * @param input Vehicle to be inserted
+     * @throws DuplicateVINException Exception when inserting a Vehicle with an already existing key
+     */
     public void insert(Vehicle input) throws DuplicateVINException {
         if(isEmpty()) {
             root = new Node(input);
@@ -33,45 +38,91 @@ public class AVL {
             }
         }
         this.updateHeight(current);
-        //TODO Implement AVL-ification with rotations after insert
+
+        // Balancing the AVL Tree after insertion
+        for(current = current.parent;current != null; current = current.parent) {
+            if(current.isUnbalanced()) {
+                balanceNode(current);
+                break;
+            }
+        }
+    }
+
+    /**
+     * Deletes an element from the AVL given the VIN
+     * @param VIN VIN of the vehicle to be deleted
+     * @return true if the vehicle has been found and deleted; false if the vehicle does not exist
+     */
+    //TODO Work in progress
+    public boolean delete(String VIN) {
+        Node current = root;
+        while(true) {
+            if (current.vehicle.compareTo(VIN) > 0) {
+                if(current.hasLeft()) {
+                    current = current.left;
+                } else {
+                    return false;
+                }
+            } else if (current.vehicle.compareTo(VIN) < 0) {
+                if(current.hasRight()) {
+                    current = current.right;
+                } else {
+                    return false;
+                }
+            } else {
+                if(current.isRightChild()) {
+                    if(current.hasLeft() && !current.hasRight()) {
+                        current.parent.right = current.left;
+                    } else if (current.hasRight() && !current.hasLeft()) {
+                        current.parent.right = current.right;
+                    }
+                } else {
+                    if(current.hasLeft() && !current.hasRight()) {
+                        current.parent.left = current.left;
+                    } else if (current.hasRight() && !current.hasLeft()) {
+                        current.parent.left = current.right;
+                    }
+                }
+            }
+        }
+    }
+
+    private void balanceNode(Node node) {
         boolean unbalanced = false;
         boolean r1 = false;
         boolean r2 = false;
-        for(current = current.parent;current != null; current = current.parent) {
-            if(current.isUnbalanced()) {
-                Node travel = current;
-                unbalanced = true;
-                if (!travel.hasLeft())
-                    r1 = true;
-                else if (!travel.hasRight())
-                    r1 = false;
-                else {
-                    r1 = travel.right.height > travel.left.height;
-                }
+        if(node.isUnbalanced()) {
+            Node travel = node;
+            unbalanced = true;
+            if (!travel.hasLeft())
+                r1 = true;
+            else if (!travel.hasRight())
+                r1 = false;
+            else {
+                r1 = travel.right.height > travel.left.height;
+            }
 
-                travel = r1 ? travel.right : travel.left;
-                if (!travel.hasLeft())
-                    r2 = true;
-                else if (!travel.hasRight())
-                    r2 = false;
-                else {
-                    r2 = travel.right.height > travel.left.height;
-                }
-                break;
+            travel = r1 ? travel.right : travel.left;
+            if (!travel.hasLeft())
+                r2 = true;
+            else if (!travel.hasRight())
+                r2 = false;
+            else {
+                r2 = travel.right.height > travel.left.height;
             }
         }
 
         if (unbalanced) {
             if(r1 && r2) {
-                leftRotation(current);
+                leftRotation(node);
             } else if (!r1 && !r2) {
-                rightRotation(current);
+                rightRotation(node);
             } else if (r1 && !r2) {
-                rightRotation(current.right);
-                leftRotation(current);
+                rightRotation(node.right);
+                leftRotation(node);
             } else {
-                leftRotation(current.left);
-                rightRotation(current);
+                leftRotation(node.left);
+                rightRotation(node);
             }
         }
     }
