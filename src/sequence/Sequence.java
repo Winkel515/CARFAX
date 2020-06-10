@@ -16,7 +16,7 @@ public class Sequence {
     public void addKeys(String key, Vehicle car) throws DuplicateVINException {
         if (binarySearch(key, 0, this.vehicles.size() - 1) != -1)
             throw new DuplicateVINException(key);
-        else if (vehicles.isEmpty())
+        if (vehicles.isEmpty())
             vehicles.add(car);
         else {
             int i = vehicles.size();
@@ -49,8 +49,7 @@ public class Sequence {
         int result = binarySearch(key, 0, this.vehicles.size() - 1);
         if (result == -1)
             throw new NonexistantVINException(key);
-        else
-            return this.vehicles.get(result);
+        return this.vehicles.get(result);
     }
 
     /**
