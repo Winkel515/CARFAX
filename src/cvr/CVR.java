@@ -8,6 +8,8 @@ public class CVR {
     private long threshold;
     private int keyLength;
     private int size = 0;
+    private AVL avl;
+    private Sequence sequence;
 
     public CVR(){
         threshold = 100000;
@@ -52,4 +54,5 @@ public class CVR {
     public boolean usingAVL() {
         return size >= threshold;
     }
+
 }

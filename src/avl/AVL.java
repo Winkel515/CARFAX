@@ -1,7 +1,10 @@
 package avl;
 
+import java.util.ArrayList;
+
 public class AVL {
     private Node root;
+    private long size;
 
     public AVL() {};
 
@@ -85,6 +88,19 @@ public class AVL {
                 }
             }
         }
+    }
+
+    public ArrayList<String> allKeys() {
+        ArrayList<String> allKeys = new ArrayList<>();
+        inorderGetKeys(root, allKeys);
+        return allKeys;
+    }
+    private void inorderGetKeys(Node n, ArrayList<String> allKeys) {
+        if(n.hasLeft())
+            inorderGetKeys(n.left, allKeys);
+        allKeys.add(n.getVehicle().getVIN());
+        if(n.hasRight())
+            inorderGetKeys(n.right, allKeys);
     }
 
     private void balanceNode(Node node) {
