@@ -96,7 +96,15 @@ public class CVR {
         } else {
             sequence.addKeys(key, value);
         }
+    }
 
+    public void remove(String key) {
+        if(usingAVL())
+            if(avl.delete(key))
+                size--;
+        else
+            if(sequence.remove(key))
+                size--;
     }
 
     public void convertToAVL() {

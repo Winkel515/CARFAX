@@ -34,12 +34,14 @@ public class Sequence {
      *
      * @param key removes the vehicle with this key
      */
-    public void remove(String key){
+    public boolean remove(String key){
         int result = binarySearch(key, 0, this.vehicles.size() - 1) ;
         if (result == -1)
-            return;
-        else
+            return false;
+        else {
             this.vehicles.remove(result);
+            return true;
+        }
     }
 
     /**
