@@ -1,5 +1,6 @@
 package cvr;
 
+import accident.Accident;
 import avl.AVL;
 import avl.DuplicateVINException;
 import avl.Vehicle;
@@ -120,6 +121,18 @@ public class CVR {
             return avl.nextKey(key);
         else
             return sequence.nextKey(key);
+    }
+
+    public ArrayList<Accident> prevAccids(String key) throws NonexistantVINException {
+        Vehicle found;
+        if(usingAVL()) {
+            found = avl.find(key);
+            if (found == null)
+                throw new NonexistantVINException(key);
+        } else {
+            found = sequence.getValues(key);
+        }
+        return found.getAccidentHistory();
     }
 
     public void convertToAVL() {

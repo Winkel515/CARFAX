@@ -1,6 +1,7 @@
 package accident;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 /**
  * AccidentHistory will work as a priority queue storing the history of accidents of a specific car
@@ -18,6 +19,14 @@ public class AccidentHistory {
             this.accident = accident;
             this.next = next;
         }
+    }
+
+    public ArrayList<Accident> getAccidentHistory() {
+        ArrayList<Accident> accidents = new ArrayList<>();
+        for(Node current = head; current != null; current = current.next) {
+            accidents.add(current.accident.clone());
+        }
+        return accidents;
     }
 
     /**

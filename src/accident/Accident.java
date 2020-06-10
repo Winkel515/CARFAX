@@ -5,7 +5,7 @@ import java.time.LocalDate;
 /**
  * Accident class stores description and date of a single accident
  */
-class Accident implements Comparable<Accident>{
+public class Accident implements Comparable<Accident>{
     private String description;
     private final LocalDate dateOfAccident;
 
@@ -17,6 +17,15 @@ class Accident implements Comparable<Accident>{
     Accident(String description, LocalDate dateOfAccident) {
         this.description = description;
         this.dateOfAccident = dateOfAccident;
+    }
+
+    Accident(Accident other) {
+        this.description = other.description;
+        this.dateOfAccident = LocalDate.of(other.dateOfAccident.getYear(), other.dateOfAccident.getMonthValue(), other.dateOfAccident.getDayOfMonth());
+    }
+
+    public Accident clone() {
+        return new Accident(this);
     }
 
     /**
