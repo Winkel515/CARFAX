@@ -11,6 +11,9 @@ public class Sequence {
         vehicles = new ArrayList<>();
     }
 
+    public void clear() {
+        vehicles.clear();
+    }
 
     public void addKeys(String key, Vehicle car) throws DuplicateVINException {
         if (binarySearch(key, 0, this.vehicles.size() - 1) != -1)
@@ -108,5 +111,14 @@ public class Sequence {
         return keys;
     }
 
-
+    /**
+     *
+     * @return a list of all the Vehicle inside the sequence ordered by keys
+     */
+    public ArrayList<Vehicle> allVehicles(){
+        ArrayList<Vehicle> vehicles = new ArrayList<>();
+        for (int i = 0; i < this.vehicles.size(); i++)
+            vehicles.add(vehicles.get(i));
+        return vehicles;
+    }
 }

@@ -1,6 +1,8 @@
 package cvr;
 
 import avl.AVL;
+import avl.DuplicateVINException;
+import avl.Vehicle;
 import sequence.Sequence;
 
 import java.util.ArrayList;
@@ -80,5 +82,55 @@ public class CVR {
             return sequence.allKeys();
         else
             return avl.allKeys();
+    }
+
+    public void add(String key, Vehicle value) throws DuplicateVINException, InvalidKeyException {
+        if(key.length() != keyLength || !isAlphaNumerical(key))
+            throw new InvalidKeyException(key, keyLength);
+        if (allKeys().contains(key))
+            throw new DuplicateVINException(key);
+        size++;
+        if(this.usingAVL()) {
+            convertToAVL();
+            avl.insert(value);
+        } else {
+            sequence.addKeys(key, value);
+        }
+
+    }
+
+    public void convertToAVL() {
+        ArrayList<Vehicle> vehicles = sequence.allVehicles();
+        for(Vehicle v: vehicles) {
+            try {
+                avl.insert(v);
+            } catch (DuplicateVINException e) {
+                e.printStackTrace();
+                System.exit(-1);
+            }
+        }
+        sequence.clear();
+    }
+
+    public void convertToSequence() {
+        ArrayList<Vehicle> vehicles = avl.allVehicles();
+        for(Vehicle v: vehicles) {
+            try {
+                sequence.addKeys(v.getVIN(), v);
+            } catch (DuplicateVINException e) {
+                e.printStackTrace();
+                System.exit(-1);
+            }
+        }
+        avl.clear();
+    }
+
+    private boolean isAlphaNumerical(String s) {
+        String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        for (int i = 0; i < characters.length(); i++) {
+            if(!characters.contains(s.subSequence(i, i+1)))
+                return false;
+        }
+        return true;
     }
 }

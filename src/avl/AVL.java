@@ -1,38 +1,42 @@
 package avl;
 import java.util.ArrayList;
+import java.util.Vector;
+
 import sequence.NonexistantVINException;
 
 public class AVL {
     private Node root;
-    private long size;
 
     public AVL() {};
 
+    public void clear() {
+        root = null;
+    }
     /**
      * Returns the previous Vehicle in lexicographical order given a VIN
      * @param VIN VIN of the the Vehicle as a reference to get previous Vehicle in lexicographical order
      * @return previous Vehicle in lexicographical order given a node
      */
-    private Vehicle getPrevious(String VIN) throws NonexistantVINException {
+    public String prevKey(String VIN) throws NonexistantVINException {
         Node n = findNode(VIN);
         if(n == null) {
             throw new NonexistantVINException(VIN);
         }
         if (n == root) {
             if (n.hasLeft())
-                return n.left.vehicle;
+                return n.left.vehicle.getVIN();
             return null;
         } else if(n.isRightChild()) {
             if (n.hasLeft())
-                return n.left.vehicle;
+                return n.left.vehicle.getVIN();
             else
-                return n.parent.vehicle;
+                return n.parent.vehicle.getVIN();
         } else { //n is a left child
             Node travel = n.left;
             while (travel.hasRight()) {
                 travel = travel.right;
             }
-            return travel.vehicle;
+            return travel.vehicle.getVIN();
         }
     }
 
@@ -41,23 +45,23 @@ public class AVL {
      * @param VIN VIN of the the Vehicle as a reference to get the next Vehicle in lexicographical order
      * @return next Vehicle in lexicographical order given a node
      */
-    private Vehicle getNext(String VIN) {
+    public String nextKey(String VIN) {
         Node n = findNode(VIN);
         if (n == root) {
             if (n.hasRight())
-                return n.right.vehicle;
+                return n.right.vehicle.getVIN();
             return null;
         } else if(n.isLeftChild()) {
             if (n.hasRight())
-                return n.right.vehicle;
+                return n.right.vehicle.getVIN();
             else
-                return n.parent.vehicle;
+                return n.parent.vehicle.getVIN();
         } else { //n is a right child
             Node travel = n.right;
             while (travel.hasLeft()) {
                 travel = travel.left;
             }
-            return travel.vehicle;
+            return travel.vehicle.getVIN();
         }
     }
 
@@ -258,6 +262,19 @@ public class AVL {
         allKeys.add(n.getVehicle().getVIN());
         if(n.hasRight())
             inorderGetKeys(n.right, allKeys);
+    }
+
+    public ArrayList<Vehicle> allVehicles() {
+        ArrayList<Vehicle> allVehicles = new ArrayList<>();
+        inorderGetVehicles(root, allVehicles);
+        return allVehicles;
+    }
+    private void inorderGetVehicles(Node n, ArrayList<Vehicle> allVehicles) {
+        if(n.hasLeft())
+            inorderGetVehicles(n.left, allVehicles);
+        allVehicles.add(n.getVehicle());
+        if(n.hasRight())
+            inorderGetVehicles(n.right, allVehicles);
     }
 
     private void balanceNode(Node node) {
