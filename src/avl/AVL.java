@@ -6,6 +6,70 @@ public class AVL {
     public AVL() {};
 
     /**
+     * Returns the previous Vehicle in lexicographical order given a Node
+     * @param n Starting node
+     * @return previous Vehicle in lexicographical order given a node
+     * @throws InvalidNodeException throws exception when the node doesn't belong in the tree
+     */
+    public Vehicle getPrevious(Node n) throws InvalidNodeException {
+        checkNode(n);
+        if (n == root) {
+            if (n.hasLeft())
+                return n.left.vehicle;
+            return null;
+        } else if(n.isRightChild()) {
+            if (n.hasLeft())
+                return n.left.vehicle;
+            else
+                return n.parent.vehicle;
+        } else { //n is a left child
+            Node travel = n.left;
+            while (travel.hasRight()) {
+                travel = travel.right;
+            }
+            return travel.vehicle;
+        }
+    }
+
+    /**
+     * Returns the next Vehicle in lexicographical order given a Node
+     * @param n Starting node
+     * @return next Vehicle in lexicographical order
+     * @throws InvalidNodeException throws exception when the node doesn't belong in the tree
+     */
+    public Vehicle getNext(Node n) throws InvalidNodeException {
+        checkNode(n);
+        if (n == root) {
+            if (n.hasRight())
+                return n.right.vehicle;
+            return null;
+        } else if(n.isLeftChild()) {
+            if (n.hasRight())
+                return n.right.vehicle;
+            else
+                return n.parent.vehicle;
+        } else { //n is a right child
+            Node travel = n.right;
+            while (travel.hasLeft()) {
+                travel = travel.left;
+            }
+            return travel.vehicle;
+        }
+    }
+
+    /**
+     * Check if a node belongs to the AVL Tree
+     * @param n Node to be checked
+     * @throws InvalidNodeException Exception thrown when the node does not belong to the AVL Tree
+     */
+    private void checkNode(Node n) throws InvalidNodeException {
+        while(n.parent != null)
+            n = n.parent;
+        if(n != root)
+            throw new InvalidNodeException();
+    }
+
+    /**
      * Inserts a Vehicle into the AVL Tree sorted by VIN in lexicographical order
      * @param input Vehicle to be inserted
      * @throws DuplicateVINException Exception when inserting a Vehicle with an already existing key
@@ -53,10 +117,13 @@ public class AVL {
      * @param VIN VIN of the vehicle to be deleted
      * @return true if the vehicle has been found and deleted; false if the vehicle does not exist
      */
-    //TODO Work in progress
+    //TODO Change boolean return to returning Vehicle
     public boolean delete(String VIN) {
+        VIN = VIN.toUpperCase();
         Node current = root;
+        Node balancer = null;
         while(true) {
+            // Searching node
             if (current.vehicle.compareTo(VIN) > 0) {
                 if(current.hasLeft()) {
                     current = current.left;
@@ -70,21 +137,122 @@ public class AVL {
                     return false;
                 }
             } else {
-                if(current.isRightChild()) {
-                    if(current.hasLeft() && !current.hasRight()) {
-                        current.parent.right = current.left;
-                    } else if (current.hasRight() && !current.hasLeft()) {
-                        current.parent.right = current.right;
-                    }
-                } else {
-                    if(current.hasLeft() && !current.hasRight()) {
-                        current.parent.left = current.left;
-                    } else if (current.hasRight() && !current.hasLeft()) {
-                        current.parent.left = current.right;
-                    }
-                }
+                break;
             }
         }
+        // Node has been found and will be deleted below
+        if(current.isRightChild()) {
+            // Single child substitution
+            if(current.hasLeft() && !current.hasRight()) {
+                current.parent.right = current.left;
+                current.left.parent = current.parent;
+                balancer = current.left; // For balancing reasons
+            } else if (current.hasRight() && !current.hasLeft()) {
+                current.parent.right = current.right;
+                current.right.parent = current.parent;
+                balancer = current.right; // For balancing reasons
+            }
+            // Leaf node case
+            else if (!current.hasLeft() && !current.hasRight()) {
+                current.parent.right = null;
+                balancer = current.parent; // For balancing reasons
+            }
+            // Has both left and right case
+            else {
+                Node substitute = current.left;
+                boolean wentRight = substitute.hasRight();
+                while(substitute.hasRight())
+                    substitute = substitute.right;
+                current.parent.right = substitute;
+                substitute.parent = current.parent;
+                substitute.right = current.right;
+                current.right.parent = substitute;
+                if (wentRight) {
+                    substitute.left = current.left;
+                    current.left.parent = substitute;
+                    balancer = substitute.parent;
+                } else {
+                    balancer = substitute;
+                }
+                printPreOrder();
+            }
+        } else if(current.isLeftChild()) {
+            // Single child substitution
+            if(current.hasLeft() && !current.hasRight()) {
+                current.parent.left = current.left;
+                current.left.parent = current.parent;
+                balancer = current.left; // For balancing reasons
+            } else if (current.hasRight() && !current.hasLeft()) {
+                current.parent.left = current.right;
+                current.right.parent = current.parent;
+                balancer = current.right; // For balancing reasons
+            }
+            // Leaf node case
+            else if (!current.hasLeft() && !current.hasRight()) {
+                current.parent.left = null;
+                balancer = current.parent; // For balancing reasons
+            }
+            // Has both left and right case
+            else {
+                Node substitute = current.left;
+                boolean wentRight = substitute.hasRight();
+                while(substitute.hasRight())
+                    substitute = substitute.right;
+                substitute.parent = current.parent;
+                current.parent.left = substitute;
+                substitute.right = current.right;
+                current.right.parent = substitute;
+                if (wentRight) {
+                    substitute.left = current.left;
+                    current.left.parent = substitute;
+                    balancer = substitute.parent;
+                } else {
+                    balancer = substitute;
+                }
+            }
+        } else if(current == root) {
+            // Single child substitution
+            if(current.hasLeft() && !current.hasRight()) {
+                root = current.left;
+                current.left.parent = null;
+                balancer = root;
+            } else if (current.hasRight() && !current.hasLeft()) {
+                root = current.right;
+                current.right.parent = null;
+                balancer = root;
+            }
+            // Leaf node case
+            else if (!current.hasLeft() && !current.hasRight()) {
+                root = null;
+            }
+            // Has both left and right case
+            else {
+                Node substitute = current.left;
+                boolean wentRight = substitute.hasRight();
+                while(substitute.hasRight())
+                    substitute = substitute.right;
+                substitute.parent = null;
+                substitute.right = current.right;
+                current.right.parent = substitute;
+                if (wentRight) {
+                    substitute.left = current.left;
+                    current.left.parent = substitute;
+                    balancer = substitute.parent;
+                } else {
+                    balancer = substitute;
+                }
+                root = substitute;
+            }
+        }
+        updateHeight(balancer);
+        // Balancing the AVL Tree after deletion
+        for(;balancer != null; balancer = balancer.parent) {
+            if(balancer.isUnbalanced()) {
+                balanceNode(balancer);
+                break;
+            }
+        }
+        return true;
     }
 
     private void balanceNode(Node node) {
@@ -225,7 +393,7 @@ public class AVL {
         return root == null;
     }
 
-    private class Node {
+    private static class Node {
         private Vehicle vehicle;
         private int height;
         private Node parent;
