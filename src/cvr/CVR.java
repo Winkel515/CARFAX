@@ -7,6 +7,7 @@ import sequence.Sequence;
 public class CVR {
     private long threshold;
     private int keyLength;
+    private int size = 0;
 
     public CVR(){
         threshold = 100000;
@@ -42,5 +43,13 @@ public class CVR {
 
     public void generate(int n){
 
+    }
+
+    public boolean usingSequence() {
+        return size < threshold;
+    }
+
+    public boolean usingAVL() {
+        return size >= threshold;
     }
 }
