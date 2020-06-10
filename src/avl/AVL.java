@@ -1,18 +1,22 @@
 package avl;
 
+import sequence.NonexistantVINException;
+
 public class AVL {
     private Node root;
 
     public AVL() {};
 
     /**
-     * Returns the previous Vehicle in lexicographical order given a Node
-     * @param n Starting node
+     * Returns the previous Vehicle in lexicographical order given a VIN
+     * @param VIN VIN of the the Vehicle as a reference to get previous Vehicle in lexicographical order
      * @return previous Vehicle in lexicographical order given a node
-     * @throws InvalidNodeException throws exception when the node doesn't belong in the tree
      */
-    public Vehicle getPrevious(Node n) throws InvalidNodeException {
-        checkNode(n);
+    private Vehicle getPrevious(String VIN) throws NonexistantVINException {
+        Node n = findNode(VIN);
+        if(n == null) {
+            throw new NonexistantVINException(VIN);
+        }
         if (n == root) {
             if (n.hasLeft())
                 return n.left.vehicle;
@@ -32,13 +36,12 @@ public class AVL {
     }
 
     /**
-     * Returns the next Vehicle in lexicographical order given a Node
-     * @param n Starting node
-     * @return next Vehicle in lexicographical order
-     * @throws InvalidNodeException throws exception when the node doesn't belong in the tree
+     * Returns the next Vehicle in lexicographical order given a VIN
+     * @param VIN VIN of the the Vehicle as a reference to get the next Vehicle in lexicographical order
+     * @return next Vehicle in lexicographical order given a node
      */
-    public Vehicle getNext(Node n) throws InvalidNodeException {
-        checkNode(n);
+    private Vehicle getNext(String VIN) {
+        Node n = findNode(VIN);
         if (n == root) {
             if (n.hasRight())
                 return n.right.vehicle;
@@ -55,18 +58,6 @@ public class AVL {
             }
             return travel.vehicle;
         }
-    }
-
-    /**
-     * Check if a node belongs to the AVL Tree
-     * @param n Node to be checked
-     * @throws InvalidNodeException Exception thrown when the node does not belong to the AVL Tree
-     */
-    private void checkNode(Node n) throws InvalidNodeException {
-        while(n.parent != null)
-            n = n.parent;
-        if(n != root)
-            throw new InvalidNodeException();
     }
 
     /**
@@ -338,6 +329,10 @@ public class AVL {
     }
 
     public Vehicle find(String VIN) {
+        return findNode(VIN).getVehicle();
+    }
+
+    public Node findNode(String VIN) {
         Node current = root;
         while(true) {
             if (current.vehicle.compareTo(VIN) > 0) {
@@ -353,7 +348,7 @@ public class AVL {
                     return null;
                 }
             } else {
-                return current.vehicle;
+                return current;
             }
         }
     }
