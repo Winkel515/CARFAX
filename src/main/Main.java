@@ -19,6 +19,7 @@ public class Main {
 //        history.addAccident("Very old accident", LocalDate.of(0, 1, 1));
 //        history.printHistory();
 
+
 //        AVL avl = new AVL();
 //        avl.insert(new Vehicle("a"));
 //        avl.insert(new Vehicle("b"));
@@ -66,6 +67,8 @@ public class Main {
 //        ArrayList<String> keys = testcvr.generate(3);
 //        for (int i = 0; i < keys.size(); i++)
 //            System.out.println(keys.get(i));
+
+
 
 
     }

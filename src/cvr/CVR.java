@@ -1,7 +1,6 @@
 package cvr;
 
 import avl.AVL;
-import org.w3c.dom.ls.LSOutput;
 import sequence.Sequence;
 
 import java.util.ArrayList;
