@@ -25,4 +25,5 @@ public class Vehicle implements Comparable<String>{
     public String getVIN() {
         return VIN;
     }
+
 }

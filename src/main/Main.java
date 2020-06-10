@@ -3,6 +3,9 @@ package main;
 import avl.AVL;
 import avl.DuplicateVINException;
 import avl.Vehicle;
+import sequence.Sequence;
+
+import java.util.ArrayList;
 
 public class Main {
 
@@ -44,7 +47,17 @@ public class Main {
         avl.printPreOrder();
         System.out.println();
 
-        //hello
-        //hello2
+        Sequence test = new Sequence();
+        test.addKeys("a", new Vehicle("a"));
+        test.addKeys("b", new Vehicle("b"));
+        test.addKeys("c", new Vehicle("c"));
+        test.addKeys("d", new Vehicle("d"));
+        test.addKeys("e", new Vehicle("e"));
+        test.addKeys("f", new Vehicle("f"));
+        test.addKeys("g", new Vehicle("g"));
+        System.out.println(test.prevKey("c"));
+        ArrayList<String> list = test.allKeys();
+        for (int i = 0; i < list.size(); i++)
+            System.out.println(list.get(i));
     }
 }
