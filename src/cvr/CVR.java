@@ -58,7 +58,7 @@ public class CVR {
         for (int i = 0; i < n;) {
             String generatedKey = "";
             for (int j = 0; j < keyLength; j++) {
-                int randomNum = (int) (Math.random() * (characters.length() - 1));
+                int randomNum = (int) (Math.random() * (characters.length()));
                 generatedKey = generatedKey + characters.substring(randomNum, randomNum + 1);
             }
             if (this.allKeys().contains(generatedKey) || keys.contains(generatedKey))
