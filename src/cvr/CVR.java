@@ -3,6 +3,7 @@ package cvr;
 import avl.AVL;
 import avl.DuplicateVINException;
 import avl.Vehicle;
+import sequence.NonexistantVINException;
 import sequence.Sequence;
 
 import java.util.ArrayList;
@@ -105,6 +106,20 @@ public class CVR {
         else
             if(sequence.remove(key))
                 size--;
+    }
+
+    public String prevKey(String key) throws NonexistantVINException {
+        if(usingAVL())
+            return avl.prevKey(key);
+        else
+            return sequence.prevKey(key);
+    }
+
+    public String nextKey(String key) throws NonexistantVINException {
+        if(usingAVL())
+            return avl.nextKey(key);
+        else
+            return sequence.nextKey(key);
     }
 
     public void convertToAVL() {

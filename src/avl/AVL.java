@@ -45,8 +45,11 @@ public class AVL {
      * @param VIN VIN of the the Vehicle as a reference to get the next Vehicle in lexicographical order
      * @return next Vehicle in lexicographical order given a node
      */
-    public String nextKey(String VIN) {
+    public String nextKey(String VIN) throws NonexistantVINException {
         Node n = findNode(VIN);
+        if(n == null) {
+            throw new NonexistantVINException(VIN);
+        }
         if (n == root) {
             if (n.hasRight())
                 return n.right.vehicle.getVIN();
