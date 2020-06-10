@@ -4,12 +4,14 @@ import avl.AVL;
 import org.w3c.dom.ls.LSOutput;
 import sequence.Sequence;
 
+import java.util.ArrayList;
+
 public class CVR {
     private long threshold;
     private int keyLength;
     private int size = 0;
-    private AVL avl;
-    private Sequence sequence;
+    private final AVL avl = new AVL();
+    private final Sequence sequence = new Sequence();
 
     public CVR(){
         threshold = 100000;
@@ -55,4 +57,10 @@ public class CVR {
         return size >= threshold;
     }
 
+    public ArrayList<String> allKeys() {
+        if(usingSequence())
+            return sequence.allKeys();
+        else
+            return avl.allKeys();
+    }
 }
