@@ -42,9 +42,19 @@ public class Main {
         avl.insert(new Vehicle("y"));
         avl.insert(new Vehicle("z"));
         avl.printPreOrder();
-        System.out.println();
-
-        //hello
-        //hello2
+        avl.delete("q");
+        avl.printPreOrder();
+        avl.delete("s");
+        avl.printPreOrder();
+        avl.delete("z");
+        avl.printPreOrder();
+        avl.delete("r");
+        avl.printPreOrder();
+        avl.delete("u");
+        avl.printPreOrder();
+        avl.delete("w");
+        avl.printPreOrder();
+        avl.delete("y");
+        avl.printPreOrder();
     }
 }

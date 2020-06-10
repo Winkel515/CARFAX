@@ -1,5 +1,7 @@
 package avl;
 
+import com.sun.security.jgss.GSSUtil;
+
 public class AVL {
     private Node root;
 
@@ -55,8 +57,11 @@ public class AVL {
      */
     //TODO Work in progress
     public boolean delete(String VIN) {
+        VIN = VIN.toUpperCase();
         Node current = root;
+        Node balancer = null;
         while(true) {
+            // Searching node
             if (current.vehicle.compareTo(VIN) > 0) {
                 if(current.hasLeft()) {
                     current = current.left;
@@ -70,21 +75,113 @@ public class AVL {
                     return false;
                 }
             } else {
-                if(current.isRightChild()) {
-                    if(current.hasLeft() && !current.hasRight()) {
-                        current.parent.right = current.left;
-                    } else if (current.hasRight() && !current.hasLeft()) {
-                        current.parent.right = current.right;
-                    }
-                } else {
-                    if(current.hasLeft() && !current.hasRight()) {
-                        current.parent.left = current.left;
-                    } else if (current.hasRight() && !current.hasLeft()) {
-                        current.parent.left = current.right;
-                    }
-                }
+                break;
             }
         }
+        // Node has been found and will be deleted below
+        if(current.isRightChild()) {
+            // Single child substitution
+            if(current.hasLeft() && !current.hasRight()) {
+                current.parent.right = current.left;
+                current.left.parent = current.parent;
+                balancer = current.left; // For balancing reasons
+            } else if (current.hasRight() && !current.hasLeft()) {
+                current.parent.right = current.right;
+                current.right.parent = current.parent;
+                balancer = current.right; // For balancing reasons
+            }
+            // Leaf node case
+            else if (!current.hasLeft() && !current.hasRight()) {
+                current.parent.right = null;
+                balancer = current.parent; // For balancing reasons
+            }
+            // Has both left and right case
+            else {
+                Node substitute = current.left;
+                while(substitute.hasRight())
+                    substitute = substitute.right;
+                balancer = substitute.parent;
+                // substitute parent has no more right
+                substitute.parent.right = null;
+                // current parent's left child is now substitute
+                current.parent.right = substitute;
+                // substitute takes all of current parent, left, right
+                substitute.parent = current.parent;
+                substitute.left = current.left;
+                substitute.right = current.right;
+            }
+        } else if(current.isLeftChild()) {
+            // Single child substitution
+            if(current.hasLeft() && !current.hasRight()) {
+                current.parent.left = current.left;
+                current.left.parent = current.parent;
+                balancer = current.left; // For balancing reasons
+            } else if (current.hasRight() && !current.hasLeft()) {
+                current.parent.left = current.right;
+                current.right.parent = current.parent;
+                balancer = current.right; // For balancing reasons
+            }
+            // Leaf node case
+            else if (!current.hasLeft() && !current.hasRight()) {
+                current.parent.left = null;
+                balancer = current.parent; // For balancing reasons
+            }
+            // Has both left and right case
+            else {
+                //TODO Fix current
+                Node substitute = current.left;
+                while(substitute.hasRight())
+                    substitute = substitute.right;
+                balancer = substitute.parent;
+                // substitute parent has no more right
+                substitute.parent.right = null;
+                // current parent's left child is now substitute
+                current.parent.left = substitute;
+                // substitute takes all of current parent, left, right
+                substitute.parent = current.parent;
+                substitute.left = current.left;
+                substitute.right = current.right;
+            }
+        } else if(current == root) {
+            // Single child substitution
+            if(current.hasLeft() && !current.hasRight()) {
+                root = current.left;
+                current.left.parent = null;
+                balancer = root;
+            } else if (current.hasRight() && !current.hasLeft()) {
+                root = current.right;
+                current.right.parent = null;
+                balancer = root;
+            }
+            // Leaf node case
+            else if (!current.hasLeft() && !current.hasRight()) {
+                root = null;
+            }
+            // Has both left and right case
+            else {
+                Node substitute = current.left;
+                while(substitute.hasRight())
+                    substitute = substitute.right;
+                balancer = substitute.parent;
+                root = substitute;
+                substitute.parent.right = null;
+                substitute.parent = null;
+                substitute.left = current.left;
+                substitute.right = current.right;
+                current.left.parent = substitute;
+                current.right.parent = substitute;
+                current = substitute; // For balancing reasons
+            }
+        }
+        updateHeight(balancer);
+        // Balancing the AVL Tree after deletion
+        for(;balancer != null; balancer = balancer.parent) {
+            if(balancer.isUnbalanced()) {
+                balanceNode(balancer);
+                break;
+            }
+        }
+        return true;
     }
 
     private void balanceNode(Node node) {
@@ -225,7 +322,7 @@ public class AVL {
         return root == null;
     }
 
-    private class Node {
+    private static class Node {
         private Vehicle vehicle;
         private int height;
         private Node parent;
