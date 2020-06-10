@@ -2,7 +2,6 @@ package sequence;
 
 import avl.DuplicateVINException;
 import avl.Vehicle;
-
 import java.util.ArrayList;
 
 public class Sequence {
