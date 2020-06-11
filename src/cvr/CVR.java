@@ -24,7 +24,15 @@ the data structure.
     10 - prevAccids: O(logn) as binary searching is done to find the vehicule and its accident history. The accident are then reverse chronologically sorted which can be ignored.
  */
 
-
+/* Space and time complexity for CVR methods when it's acting as an AVL
+    4 - allKeys: O(n) as it loops through the AVL and adds all the keys to a new list
+    5 - add: O(logn) as it depends on the current height of the AVL tree and if balancing is necessary. O(1) for the space complexity as it is constant size
+    6 - remove: O(logn) as it depends on the current height of the AVL tree and if balancing is necessary. O(1) for the space complexity as it is a constant size.
+    7 - getValues: O(logn) as it depends on the current height of the AVL tree. O(1) for the space complexity as it is a constant size
+    8 - nextKey: O(logn) as binary searching is done to find the vehicle and it's next key
+    9 - prevKey: O(logn) as binary searching is done to find the vehicle and it's previous key
+    10 - prevAccids: O(logn) as it depends on the current height of the AVL tree. The accidents are then reverse chronologically sorted which can be ignored.
+ */
 package cvr;
 
 import accident.Accident;
