@@ -3,6 +3,7 @@ package avl;
 import accident.AccidentHistory;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 public class Vehicle implements Comparable<String>{
     private final String VIN;
@@ -24,6 +25,11 @@ public class Vehicle implements Comparable<String>{
 
     public String getVIN() {
         return VIN;
+    }
+
+    public void printVehicle(){
+        System.out.println("The vehicle with the VIN " + this.VIN + " has the following accident history: ");
+        this.accidentHistory.printHistory();
     }
 
 }

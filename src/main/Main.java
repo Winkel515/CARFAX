@@ -1,24 +1,48 @@
 package main;
 
+import accident.AccidentHistory;
 import avl.AVL;
 import avl.DuplicateVINException;
 import avl.Vehicle;
 import cvr.CVR;
+import cvr.InvalidKeyException;
+import cvr.KeyLengthOutOfBoundsException;
+import cvr.ThresholdOutOfBoundsException;
+import sequence.NonexistantVINException;
 import sequence.Sequence;
 
 import java.lang.reflect.Array;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class Main {
 
-    public static void main(String[] args) throws DuplicateVINException {
-//        AccidentHistory history = new AccidentHistory();
-//        history.addAccident("Shit went wrong", LocalDate.of(1999, 11, 25));
-//        history.addAccident("Car went boom", LocalDate.of(2000, 10, 11));
-//        history.addAccident("Big crash", LocalDate.of(2000, 10, 10));
-//        history.addAccident("Very old accident", LocalDate.of(0, 1, 1));
-//        history.printHistory();
+    public static void main(String[] args) throws DuplicateVINException, ThresholdOutOfBoundsException, KeyLengthOutOfBoundsException, InvalidKeyException, NonexistantVINException {
 
+        CVR structure = new CVR(1000, 11);
+        ArrayList<String> keys = structure.generate(999);
+
+        for (int i = 0; i < 999; i++) {
+            structure.add(keys.get(i), new Vehicle(keys.get(i)));
+            structure.getValues(keys.get(i)).addAccident("Shit went wrong", LocalDate.of(1999, 11, 25));
+            structure.getValues(keys.get(i)).addAccident("Car went boom", LocalDate.of(2000, 10, 11));
+            structure.getValues(keys.get(i)).addAccident("Big crash", LocalDate.of(2000, 10, 10));
+            structure.getValues(keys.get(i)).addAccident("Very old accident", LocalDate.of(0, 1, 1));
+        }
+
+        System.out.println("The current structure has " + structure.getSize() + " vehicules and is a " + structure.isWhat());
+
+        keys.add(structure.generate(1).get(0));
+        structure.add(keys.get(999), new Vehicle(keys.get(999)));
+
+        System.out.println("The current structure has " + structure.getSize() + " vehicules and is an " + structure.isWhat());
+
+        structure.getValues(keys.get(750)).printVehicle();
+
+        String testkey = structure.prevKey(keys.get(750));
+        System.out.println(testkey);
+
+        System.out.println(structure.nextKey(testkey));
 
 //        AVL avl = new AVL();
 //        avl.insert(new Vehicle("a"));

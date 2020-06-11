@@ -15,7 +15,7 @@ public class Sequence {
         vehicles.clear();
     }
 
-    public void addKeys(String key, Vehicle car) throws DuplicateVINException {
+    public void add(String key, Vehicle car) throws DuplicateVINException {
         if (binarySearch(key, 0, this.vehicles.size() - 1) != -1)
             throw new DuplicateVINException(key);
         if (vehicles.isEmpty())
@@ -61,12 +61,11 @@ public class Sequence {
      * @param key, we want the next key of this one
      * @return next key
      */
-    public String nextKey(String key){
+    public String nextKey(String key) throws NonexistantVINException {
         int result = binarySearch(key, 0, this.vehicles.size()-1);
-        if (result == -1 || result == 0)
-            return null;
-        else
-            return this.vehicles.get(result + 1).getVIN();
+        if (result == -1 || result == vehicles.size() - 1)
+            throw new NonexistantVINException(key);
+        return this.vehicles.get(result + 1).getVIN();
     }
 
     /**
@@ -74,12 +73,11 @@ public class Sequence {
      * @param key, we want the previous key of this one
      * @return previous key
      */
-    public String prevKey(String key){
+    public String prevKey(String key) throws NonexistantVINException {
         int result = binarySearch(key, 0, this.vehicles.size() -1);
-        if (result == -1 || result == this.vehicles.size())
-            return null;
-        else
-            return this.vehicles.get(result - 1).getVIN();
+        if (result == -1 || result == 0)
+            throw new NonexistantVINException(key);
+        return this.vehicles.get(result - 1).getVIN();
     }
 
     /**
@@ -118,9 +116,9 @@ public class Sequence {
      * @return a list of all the Vehicle inside the sequence ordered by keys
      */
     public ArrayList<Vehicle> allVehicles(){
-        ArrayList<Vehicle> vehicles = new ArrayList<>();
+        ArrayList<Vehicle> vehicleslist = new ArrayList<>();
         for (int i = 0; i < this.vehicles.size(); i++)
-            vehicles.add(vehicles.get(i));
-        return vehicles;
+            vehicleslist.add(this.vehicles.get(i));
+        return vehicleslist;
     }
 }

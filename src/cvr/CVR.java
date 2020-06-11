@@ -95,7 +95,7 @@ public class CVR {
             convertToAVL();
             avl.insert(value);
         } else {
-            sequence.addKeys(key, value);
+            sequence.add(key, value);
         }
     }
 
@@ -139,7 +139,7 @@ public class CVR {
         ArrayList<Vehicle> vehicles = avl.allVehicles();
         for(Vehicle v: vehicles) {
             try {
-                sequence.addKeys(v.getVIN(), v);
+                sequence.add(v.getVIN(), v);
             } catch (DuplicateVINException e) {
                 e.printStackTrace();
                 System.exit(-1);
@@ -150,10 +150,30 @@ public class CVR {
 
     private boolean isAlphaNumerical(String s) {
         String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-        for (int i = 0; i < characters.length(); i++) {
+        for (int i = 0; i < s.length(); i++) {
             if(!characters.contains(s.subSequence(i, i+1)))
                 return false;
         }
         return true;
     }
+
+    public Vehicle getValues(String key) throws NonexistantVINException {
+        if (usingSequence())
+            return sequence.getValues(key);
+        else if (avl.find(key) == null)
+            throw new NonexistantVINException(key);
+        return avl.find(key);
+    }
+
+    public String isWhat(){
+        if (usingSequence())
+            return "Sequence";
+        return "AVL";
+    }
+
+    public int getSize(){
+        return size;
+    }
+
+
 }
