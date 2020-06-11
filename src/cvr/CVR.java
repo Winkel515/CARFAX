@@ -1,3 +1,30 @@
+/* The data structure was implemented with multiple classes. First of all, there is the vehicles class. This one is rather straightforward. Each vehicle
+contains a VIN as well as accident history. The VIN basically acts as a key. Each accident history is made up of accidents. All of these vehicles are held inside
+the data structure CVR. This dynamic data structure can take on two forms: either a sequence or an AVL tree. Each are separate classes, unrelated, combined with
+the CVR class. They both have the same methods and the CVR class decides which type should be used, depending on the amount of cars held inside. If
+the threshold for a sequence is passed, the CVR is automatically converted into an AVL tree from a sequence and all the vehicles are transferred. All the required methods
+are below, with some additional ones to help supper the CVR data structure. Multiple exceptions can be thrown depending on what the type of mistake is made by the user of
+the data structure.
+*/
+
+/* Space and time complexity for the CVR-only methods
+    1 - setThreshold: O(1) as it only sets a value, never depends on input
+    2 - setKeyLength: O(1) as it only sets a value, never depends on input
+    3 - generate(n): O(n) as it depends on the desired number of keys only.
+ */
+
+/* Space and time complexity for CVR methods when it's acting as a sequence
+    4 - allKeys: O(n) as it loops through the sequence and adds all the keys to a new list
+    5 - add: O(n) as it loops through the sequence to know where to put the vehicle and shift the rest. Vehicles are sorted as they are added. O(1) for the space complexity as it
+             is a constant size.
+    6 - remove: O(n) as there is shifting when the car is found. O(1) for the space complexity as it is a constant size.
+    7 - getValues: O(logn) as binary searching is done to find the vehicle and remove it
+    8 - nextKey: O(logn) as binary searching is done to find the vehicle and it's next key
+    9 - prevKey: O(logn) as binary searching is done to find the vehicle and it's previous key
+    10 - prevAccids: O(logn) as binary searching is done to find the vehicule and its accident history. The accident are then reverse chronologically sorted which can be ignored.
+ */
+
+
 package cvr;
 
 import accident.Accident;
@@ -71,14 +98,26 @@ public class CVR {
         return keys;
     }
 
+    /**
+     *
+     * @return if the current structure is a sequence, meaning we are under the threshold
+     */
     public boolean usingSequence() {
         return size < threshold;
     }
 
+    /**
+     *
+     * @return if the current structure is an AVL, meaning we are over the threshold
+     */
     public boolean usingAVL() {
         return size >= threshold;
     }
 
+    /**
+     *
+     * @return a list of all the keys
+     */
     public ArrayList<String> allKeys() {
         if(usingSequence())
             return sequence.allKeys();
@@ -86,6 +125,13 @@ public class CVR {
             return avl.allKeys();
     }
 
+    /**
+     *
+     * @param key the car's key that we want to add to the CVR
+     * @param value the car we want to add to the CVR
+     * @throws DuplicateVINException if the car is already inside the CVR
+     * @throws InvalidKeyException if the key entered isn't valid
+     */
     public void add(String key, Vehicle value) throws DuplicateVINException, InvalidKeyException {
         if(key.length() != keyLength || !isAlphaNumerical(key))
             throw new InvalidKeyException(key, keyLength);
@@ -100,15 +146,26 @@ public class CVR {
         }
     }
 
+    /**
+     *
+     * @param key key of the car we want to remove
+     */
     public void remove(String key) {
-        if(usingAVL())
-            if(avl.delete(key))
+        if (usingAVL()) {
+            if (avl.delete(key))
                 size--;
-        else
-            if(sequence.remove(key))
+        } else {
+            if (sequence.remove(key))
                 size--;
+        }
     }
 
+    /**
+     *
+     * @param key key that we want the previous vehicule
+     * @return previous key
+     * @throws NonexistantVINException if the key entered doesn't exist
+     */
     public String prevKey(String key) throws NonexistantVINException {
         if(usingAVL())
             return avl.prevKey(key);
@@ -116,6 +173,12 @@ public class CVR {
             return sequence.prevKey(key);
     }
 
+    /**
+     *
+     * @param key key of the original vehicule
+     * @return the next key of that first vehicule
+     * @throws NonexistantVINException if the key entered doesn't exist
+     */
     public String nextKey(String key) throws NonexistantVINException {
         if(usingAVL())
             return avl.nextKey(key);
@@ -123,6 +186,12 @@ public class CVR {
             return sequence.nextKey(key);
     }
 
+    /**
+     *
+     * @param key key of the car which we want all the accidents.
+     * @return a list of all the accidents for that key, in a reverse chronological order
+     * @throws NonexistantVINException if the key entered doesn't exist
+     */
     public ArrayList<Accident> prevAccids(String key) throws NonexistantVINException {
         Vehicle found;
         if(usingAVL()) {
@@ -135,6 +204,9 @@ public class CVR {
         return found.getAccidentHistory();
     }
 
+    /**
+     * when we go over to threshold, we convert the structure to an AVL
+     */
     public void convertToAVL() {
         ArrayList<Vehicle> vehicles = sequence.allVehicles();
         for(Vehicle v: vehicles) {
@@ -148,6 +220,9 @@ public class CVR {
         sequence.clear();
     }
 
+    /**
+     * when we go under the threshold, we convert the structure to a sequence
+     */
     public void convertToSequence() {
         ArrayList<Vehicle> vehicles = avl.allVehicles();
         for(Vehicle v: vehicles) {
@@ -161,6 +236,11 @@ public class CVR {
         avl.clear();
     }
 
+    /**
+     *
+     * @param s key which we want to check if valid
+     * @return if the key is valid or not
+     */
     private boolean isAlphaNumerical(String s) {
         String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
         for (int i = 0; i < s.length(); i++) {
@@ -170,7 +250,12 @@ public class CVR {
         return true;
     }
 
-
+    /**
+     *
+     * @param key key of the car we want
+     * @return vehicule of the key
+     * @throws NonexistantVINException if there exists no vehicule with that particular key
+     */
     public Vehicle getValues(String key) throws NonexistantVINException {
         if (usingSequence())
             return sequence.getValues(key);
@@ -179,21 +264,23 @@ public class CVR {
         return avl.find(key);
     }
 
+    /**
+     *
+     * @return if the structure is an AVL or a sequence
+     */
     public String isWhat(){
         if (usingSequence())
             return "Sequence";
         return "AVL";
     }
 
+    /**
+     *
+     * @return size of the structure
+     */
     public int getSize(){
         return size;
     }
 
-    public void printADT() {
-        if (usingAVL())
-            System.out.println("Using AVL");
-        else
-            System.out.println("Using Sequence");
-    }
 
 }

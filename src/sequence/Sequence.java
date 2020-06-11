@@ -15,6 +15,12 @@ public class Sequence {
         vehicles.clear();
     }
 
+    /**
+     *
+     * @param key key we want to add to the sequence
+     * @param car car we want to add to the sequence
+     * @throws DuplicateVINException if the car is already in the sequence
+     */
     public void add(String key, Vehicle car) throws DuplicateVINException {
         if (binarySearch(key, 0, this.vehicles.size() - 1) != -1)
             throw new DuplicateVINException(key);
