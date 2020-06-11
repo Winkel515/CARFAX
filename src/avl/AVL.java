@@ -18,25 +18,39 @@ public class AVL {
      * @return previous Vehicle in lexicographical order given a node
      */
     public String prevKey(String VIN) throws NonexistantVINException {
+        VIN = VIN.toUpperCase();
         Node n = findNode(VIN);
         if(n == null) {
             throw new NonexistantVINException(VIN);
         }
         if (n == root) {
-            if (n.hasLeft())
-                return n.left.vehicle.getVIN();
-            return null;
-        } else if(n.isRightChild()) {
-            if (n.hasLeft())
-                return n.left.vehicle.getVIN();
-            else
-                return n.parent.vehicle.getVIN();
-        } else { //n is a left child
-            Node travel = n.left;
-            while (travel.hasRight()) {
-                travel = travel.right;
+            if (n.hasLeft()) {
+                Node travel = n.left;
+                while (travel.hasRight())
+                    travel = travel.right;
+                return travel.vehicle.getVIN();
             }
-            return travel.vehicle.getVIN();
+            return null;
+        } else if(n.isRightChild() && !n.hasRight()) {
+            return n.parent.vehicle.getVIN();
+        } else {
+            if(n.hasLeft()) {
+                Node travel = n.left;
+                while (travel.hasRight())
+                    travel = travel.right;
+                return travel.vehicle.getVIN();
+            } else {
+                if (n.isLeftChild()) {
+                    Node travel = n.parent;
+                    while(!travel.isRightChild() && travel != root)
+                        travel = travel.parent;
+                    if (travel == root)
+                        return null;
+                    return travel.parent.vehicle.getVIN();
+                } else {
+                    return n.parent.vehicle.getVIN();
+                }
+            }
         }
     }
 
@@ -46,25 +60,39 @@ public class AVL {
      * @return next Vehicle in lexicographical order given a node
      */
     public String nextKey(String VIN) throws NonexistantVINException {
+        VIN = VIN.toUpperCase();
         Node n = findNode(VIN);
         if(n == null) {
             throw new NonexistantVINException(VIN);
         }
         if (n == root) {
-            if (n.hasRight())
-                return n.right.vehicle.getVIN();
-            return null;
-        } else if(n.isLeftChild()) {
-            if (n.hasRight())
-                return n.right.vehicle.getVIN();
-            else
-                return n.parent.vehicle.getVIN();
-        } else { //n is a right child
-            Node travel = n.right;
-            while (travel.hasLeft()) {
-                travel = travel.left;
+            if (n.hasRight()) {
+                Node travel = n.right;
+                while (travel.hasLeft())
+                    travel = travel.left;
+                return travel.vehicle.getVIN();
             }
-            return travel.vehicle.getVIN();
+            return null;
+        } else {
+            if (n.hasRight()) {
+                Node travel = n.right;
+                while (travel.hasLeft()) {
+                    travel = travel.left;
+                }
+                return travel.vehicle.getVIN();
+            } else {
+                if(n.isRightChild()) {
+                    //TODO More testing required
+                    Node travel = n.parent;
+                    while (!travel.isLeftChild() && travel != root)
+                        travel = travel.parent;
+                    if (travel == root)
+                        return null;
+                    return travel.parent.vehicle.getVIN();
+                } else {
+                    return n.parent.vehicle.getVIN();
+                }
+            }
         }
     }
 
