@@ -118,9 +118,9 @@ public class Sequence {
      * @return a list of all the Vehicle inside the sequence ordered by keys
      */
     public ArrayList<Vehicle> allVehicles(){
-        ArrayList<Vehicle> vehicles = new ArrayList<>();
+        ArrayList<Vehicle> v = new ArrayList<>();
         for (int i = 0; i < this.vehicles.size(); i++)
-            vehicles.add(vehicles.get(i));
-        return vehicles;
+            v.add(vehicles.get(i));
+        return v;
     }
 }

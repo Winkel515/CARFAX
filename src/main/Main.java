@@ -4,14 +4,16 @@ import avl.AVL;
 import avl.DuplicateVINException;
 import avl.Vehicle;
 import cvr.CVR;
+import cvr.InvalidKeyException;
 import sequence.Sequence;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Main {
 
-    public static void main(String[] args) throws DuplicateVINException {
+    public static void main(String[] args) throws DuplicateVINException, InvalidKeyException {
 //        AccidentHistory history = new AccidentHistory();
 //        history.addAccident("Shit went wrong", LocalDate.of(1999, 11, 25));
 //        history.addAccident("Car went boom", LocalDate.of(2000, 10, 11));
@@ -67,9 +69,12 @@ public class Main {
 //        ArrayList<String> keys = testcvr.generate(3);
 //        for (int i = 0; i < keys.size(); i++)
 //            System.out.println(keys.get(i));
-
-
-
-
+        CVR cvr = new CVR();
+        cvr.printADT();
+        ArrayList<String> keys = cvr.generate(1000);
+        for(String key: keys) {
+            cvr.add(key, new Vehicle(key));
+        }
+        cvr.printADT();
     }
 }

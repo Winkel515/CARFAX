@@ -17,7 +17,7 @@ public class CVR {
     private final Sequence sequence = new Sequence();
 
     public CVR(){
-        threshold = 100000;
+        threshold = 1000;
         keyLength = 14;
     }
 
@@ -163,10 +163,17 @@ public class CVR {
 
     private boolean isAlphaNumerical(String s) {
         String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-        for (int i = 0; i < characters.length(); i++) {
+        for (int i = 0; i < s.length(); i++) {
             if(!characters.contains(s.subSequence(i, i+1)))
                 return false;
         }
         return true;
+    }
+
+    public void printADT() {
+        if (usingAVL())
+            System.out.println("Using AVL");
+        else
+            System.out.println("Using Sequence");
     }
 }
