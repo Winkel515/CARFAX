@@ -9,14 +9,15 @@ import cvr.InvalidKeyException;
 import cvr.KeyLengthOutOfBoundsException;
 import cvr.ThresholdOutOfBoundsException;
 import sequence.NonexistantVINException;
+
 import sequence.Sequence;
 
 import java.lang.reflect.Array;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Main {
-
     public static void main(String[] args) throws DuplicateVINException, ThresholdOutOfBoundsException, KeyLengthOutOfBoundsException, InvalidKeyException, NonexistantVINException {
 
         CVR structure = new CVR(1000, 11);
@@ -91,9 +92,6 @@ public class Main {
 //        ArrayList<String> keys = testcvr.generate(3);
 //        for (int i = 0; i < keys.size(); i++)
 //            System.out.println(keys.get(i));
-
-
-
 
     }
 }
