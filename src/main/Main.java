@@ -1,8 +1,6 @@
 package main;
 
 import accident.Accident;
-import accident.AccidentHistory;
-import avl.AVL;
 import avl.DuplicateVINException;
 import avl.Vehicle;
 import cvr.CVR;
@@ -11,9 +9,6 @@ import cvr.KeyLengthOutOfBoundsException;
 import cvr.ThresholdOutOfBoundsException;
 import sequence.NonexistantVINException;
 
-import sequence.Sequence;
-
-import java.lang.reflect.Array;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;

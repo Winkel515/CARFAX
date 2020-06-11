@@ -82,7 +82,6 @@ public class AVL {
                 return travel.vehicle.getVIN();
             } else {
                 if(n.isRightChild()) {
-                    //TODO More testing required
                     Node travel = n.parent;
                     while (!travel.isLeftChild() && travel != root)
                         travel = travel.parent;
@@ -144,7 +143,6 @@ public class AVL {
      * @param VIN VIN of the vehicle to be deleted
      * @return true if the vehicle has been found and deleted; false if the vehicle does not exist
      */
-    //TODO Change boolean return to returning Vehicle
     public boolean delete(String VIN) {
         VIN = VIN.toUpperCase();
         Node current = root;
